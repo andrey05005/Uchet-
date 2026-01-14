@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block header %}{{ group.name }}{% endblock %}
+{% block content %}
+  <section class="card balance-card">
+    <div class="row">
+      <div>
+        <h2>Баланс группы</h2>
+        <div class="balance">{{ '%.2f'|format(balance) }}</div>
+      </div>
+      <a href="/dashboard" class="ghost-button">Назад</a>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Добавить запись</h2>
+    <form method="post" action="/groups/{{ group.id }}/items" class="form">
+      <label>
+        Сумма
+        <input type="text" name="amount" inputmode="decimal" required />
+      </label>
+      <label>
+        Заметка
+        <input type="text" name="note" placeholder="Например, займ другу" />
+      </label>
+      <button type="submit" class="primary-button">Добавить</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <h2>Записи</h2>
+    {% if items %}
+      <ul class="list">
+        {% for item in items %}
+          <li class="list-item">
+            <div>
+              <div class="amount">{{ '%.2f'|format(item.amount) }}</div>
+              <div class="muted">{{ item.note or 'Без заметки' }}</div>
+              <div class="muted small">{{ item.created_at.strftime('%d.%m.%Y %H:%M') }}</div>
+            </div>
+            <form method="post" action="/groups/{{ group.id }}/items/{{ item.id }}/delete">
+              <button type="submit" class="danger-button">Удалить</button>
+            </form>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="muted">Пока нет записей.</p>
+    {% endif %}
+  </section>
+
+  <section class="card">
+    <h2>Удалить группу</h2>
+    <p class="muted">Удаление группы удалит все записи внутри.</p>
+    <form method="post" action="/groups/{{ group.id }}/delete">
+      <button type="submit" class="danger-button">Удалить группу</button>
+    </form>
+  </section>
+{% endblock %}
