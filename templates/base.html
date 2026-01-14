@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ title or "Долги" }}</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="manifest" href="/static/manifest.webmanifest" />
+  <meta name="theme-color" content="#2b4a9b" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="apple-touch-icon" href="/static/icons/icon-192.svg" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="topbar__title">{% block header %}Долги{% endblock %}</div>
+      {% if user %}
+      <form action="/logout" method="post" class="topbar__logout">
+        <button type="submit" class="ghost-button">Выйти</button>
+      </form>
+      {% endif %}
+    </header>
+    <main class="content">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/static/sw.js');
+      });
+    }
+  </script>
+</body>
+</html>

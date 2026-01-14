@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block header %}Вход{% endblock %}
+{% block content %}
+  <section class="card">
+    <h1>Войти</h1>
+    <p class="muted">Нет аккаунта? <a href="/register">Создать</a></p>
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+    <form method="post" action="/login" class="form">
+      <label>
+        Логин
+        <input type="text" name="username" required />
+      </label>
+      <label>
+        Пароль
+        <input type="password" name="password" required />
+      </label>
+      <button type="submit" class="primary-button">Войти</button>
+    </form>
+  </section>
+  <section class="card note">
+    <h2>Установить как приложение</h2>
+    <p>Откройте сайт в Safari → Поделиться → «На экран Домой».</p>
+  </section>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block header %}Мои долги{% endblock %}
+{% block content %}
+  <section class="card balance-card">
+    <h2>Общий баланс</h2>
+    <div class="balance">{{ '%.2f'|format(total_balance) }}</div>
+  </section>
+
+  <section class="card">
+    <h2>Группы</h2>
+    {% if groups %}
+      <ul class="list">
+        {% for group, balance in groups %}
+          <li class="list-item">
+            <a class="list-link" href="/groups/{{ group.id }}">
+              <span>{{ group.name }}</span>
+              <span class="amount">{{ '%.2f'|format(balance) }}</span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="muted">Пока нет групп. Добавьте первую ниже.</p>
+    {% endif %}
+  </section>
+
+  <section class="card">
+    <h2>Новая группа</h2>
+    <form method="post" action="/groups" class="form inline">
+      <label>
+        Название
+        <input type="text" name="name" required />
+      </label>
+      <button type="submit" class="primary-button">Создать</button>
+    </form>
+  </section>
+
+  <section class="card note">
+    <h2>Установить как приложение</h2>
+    <p>Откройте сайт в Safari → Поделиться → «На экран Домой».</p>
+  </section>
+{% endblock %}
