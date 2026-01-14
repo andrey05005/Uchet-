@@ -1,5 +1,13 @@
 # Uchet-
 
+## База данных (PostgreSQL)
+Приложение использует PostgreSQL через SQLAlchemy. Укажите строку подключения в переменной окружения `DATABASE_URL`,
+например:
+
+```
+export DATABASE_URL="postgresql+psycopg://user:password@host:5432/uchet"
+```
+
 ## PWA иконки (SVG для этого окружения)
 Сейчас манифест и `apple-touch-icon` используют SVG‑иконки, потому что бинарные файлы (PNG) недоступны в этом окружении.
 
